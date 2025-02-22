@@ -1,14 +1,14 @@
 {
   "name": "session-cookie",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Cookie-based session middleware",
   "main": "index.js",
   "scripts": {
     "test": "echo \"No unit tests created to-date. Please contribute.\""
   },
-  "repository" {
+  "repository": {
     "type": "git",
-    "url": "https://github.com/bredd/session-cookie"
+    "url": "git+https://github.com/bredd/session-cookie.git"
   },
   "keywords": [
     "connect",
@@ -21,7 +21,6 @@
   "license": "MIT",
   "dependencies": {
     "cookies": "^0.9.1",
-    "crypto": "^1.0.1",
     "on-headers": "^1.0.2",
     "safe-buffer": "^5.2.1"
   }
