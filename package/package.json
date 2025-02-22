@@ -6,6 +6,10 @@
   "scripts": {
     "test": "echo \"No unit tests created to-date. Please contribute.\""
   },
+  "repository" {
+    "type": "git",
+    "url": "https://github.com/bredd/session-cookie"
+  },
   "keywords": [
     "connect",
     "cookie",
