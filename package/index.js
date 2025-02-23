@@ -307,7 +307,6 @@ function detokenize(str, key) {
             //console.log("Expired session token.");
             return null;
         }
-        console.log(`Expires in ${(exp - nowInSeconds()) / 3600} hours.`);
 
         return JSON.parse(Buffer.from(tokenBody, 'base64').toString('utf8'));
     }
