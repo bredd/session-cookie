@@ -41,7 +41,7 @@ function cookieSession(options) {
     var opts = options || {};
 
     // Session defaults
-    if (options.maxAge == null) options.maxage = 60 * 60 * 1000; // One hour
+    if (options.maxAge == null) options.maxAge = 60 * 60 * 1000; // One hour
 
     // cookie name
     var name = opts.name || 'session';
@@ -55,7 +55,7 @@ function cookieSession(options) {
     if (opts.cookie.path == null) opts.cookie.path = '/';
     opts.cookie.overwrite = true; // Always overwrite
     if (opts.cookie.httpOnly == null) opts.cookie.httpOnly = true;
-    opts.cookie.maxAge = opts.maxAge; // Must be same as session
+    opts.cookie.maxAge = opts.maxAge; // Should be same as session
 
     return function _cookieSession(req, res, next) {
         var cookies = new Cookies(req, res);
@@ -265,7 +265,7 @@ function hmac(val, secret) {
  * @private
  */
 function tokenize(obj, maxAge, key) {
-    const exp = nowInSeconds() + maxAge / 1000;
+    const exp = nowInSeconds() + (maxAge / 1000);
     var tokenBody = Buffer.from(JSON.stringify(obj)).toString('base64').replace(/\=+$/, '')
         + '.' + exp.toString();
     return tokenBody + '.' + hmac(tokenBody, key);
@@ -281,30 +281,33 @@ function detokenize(str, key) {
         // Separate the hmac from the string
         let dot = str.lastIndexOf('.');
         if (dot < 0) {
-            console.log('Invalid token format (d2)');
+            //console.log('Invalid token format (d2)');
+            return null;
         }
         const tokenHmac = str.slice(dot + 1);
         let tokenBody = str.slice(0, dot);
 
         // Reject if the signature doesn't match
         if (hmac(tokenBody, key) !== tokenHmac) {
-            console.log("Invalid session token signature.");
+            //console.log("Invalid session token signature.");
             return null;
         }
 
         // Get expiration
         dot = tokenBody.lastIndexOf('.');
         if (dot < 0) {
-            console.log('Invalid token format (d1)');
+            //console.log('Invalid token format (d1)');
+            return null;
         }
         const exp = Number(tokenBody.slice(dot + 1));
         tokenBody = tokenBody.slice(0, dot);
 
         // Reject if expired
         if (exp && exp < nowInSeconds()) {
-            console.log("Expired session token.");
+            //console.log("Expired session token.");
             return null;
         }
+        console.log(`Expires in ${(exp - nowInSeconds()) / 3600} hours.`);
 
         return JSON.parse(Buffer.from(tokenBody, 'base64').toString('utf8'));
     }

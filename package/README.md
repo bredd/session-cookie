@@ -4,7 +4,7 @@ Maintain small [express](https://expressjs.com/) sessions in a session cookie in
 
 Compatible with [passport](https://www.npmjs.com/package/passport) v0.6.0 and v0.7.0
 
-Typically, **express** user sessions are stored in a local database of some sort using the [express-session](https://www.npmjs.com/package/express-session) module combined with an appropriate session store. This has several including the requirement to choose and maintain a session database and extra complexity when working with load balancers. For applications that keep small sessions (e.g. userId, name, and a few permissions) keeping everything in a cookie is more efficient.
+Typically, **express** user sessions are stored in a local database of some sort using the [express-session](https://www.npmjs.com/package/express-session) module combined with an appropriate session store. This has several disadvantages including the requirement to choose and maintain a session database and extra complexity when working with load balancers. For applications that keep small sessions (e.g. userId, name, and a few permissions) keeping everything in a cookie is more efficient.
 
 This project is based on a fork of [cookie-session](https://github.com/expressjs/cookie-session) heavily modified for compatibility with **passport** 0.6.0 and later.
 
